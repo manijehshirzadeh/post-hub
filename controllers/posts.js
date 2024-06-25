@@ -29,4 +29,14 @@ router.post("/", async (req, res) => {
     res.redirect("/");
   }
 });
+router.get("/:postId", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId).populate("owner");
+    res.render("posts/show.ejs", { post: post });
+  } catch (error) {
+    console.log(error);
+    res.redirect("/posts");
+  }
+});
+
 module.exports = router;
