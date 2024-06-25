@@ -39,4 +39,17 @@ router.get("/:postId", async (req, res) => {
   }
 });
 
+router.delete("/:postId", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    if (post.owner.equals(req.session.user._id)) {
+      await post.deleteOne();
+      res.redirect("/posts");
+    }
+  } catch (error) {
+    console.log(error);
+    res.redirect("/");
+  }
+});
+
 module.exports = router;
