@@ -5,7 +5,13 @@ const User = require("../models/user.js");
 const Post = require("../models/post.js");
 
 router.get("/", async (req, res) => {
-  res.render("posts/index.ejs");
+  try {
+    const posts = await Post.find({}).populate("owner");
+    res.render("posts/index.ejs", { posts: posts });
+  } catch (error) {
+    console.log(error);
+    res.redirect("/");
+  }
 });
 
 router.get("/new", async (req, res) => {
