@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New Post</title>
+    <title>Document</title>
     <%- include('../partials/_bootstrap.ejs') %>
   </head>
   <body>
-    <form action="/posts" method="post">
+    <form action="/posts/<%= post._id %>?_method=PUT" method="post">
       <div class="mb-3">
         <label class="form-label">Title</label>
-        <input name="title" class="form-control" />
+        <input name="title" class="form-control" value="<%= post.title %>" />
       </div>
       <div class="mb-3">
         <label>Content</label>
@@ -19,10 +19,12 @@
           class="form-control"
           placeholder="Write your post here"
           style="height: 100px"
-        ></textarea>
+        >
+<%= post.content %></textarea
+        >
       </div>
 
-      <button button type="submit" class="btn btn-success">Add Post</button>
+      <button button type="submit" class="btn btn-success">Update Post</button>
     </form>
   </body>
 </html>

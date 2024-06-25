@@ -18,6 +18,17 @@ router.get("/new", async (req, res) => {
   res.render("posts/new.ejs");
 });
 
+router.put("/:postId", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    await post.updateOne(req.body);
+    res.redirect("/posts");
+  } catch (error) {
+    console.log(error);
+    res.redirect("/posts");
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const newPost = new Post(req.body);
@@ -46,6 +57,16 @@ router.delete("/:postId", async (req, res) => {
       await post.deleteOne();
       res.redirect("/posts");
     }
+  } catch (error) {
+    console.log(error);
+    res.redirect("/");
+  }
+});
+
+router.get("/:postId/edit", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    res.render("posts/edit.ejs", { post: post });
   } catch (error) {
     console.log(error);
     res.redirect("/");
