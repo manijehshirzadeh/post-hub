@@ -11,6 +11,7 @@ const ensureLoggedIn = require("./middleware/ensureLoggedIn");
 const passGlobalDataToViews = require("./middleware/passGlobalDataToViews");
 
 const authController = require("./controllers/auth.js");
+const postsController = require("./controllers/posts.js");
 
 const port = process.env.PORT ? process.env.PORT : "3000";
 
@@ -34,8 +35,7 @@ app.use(
 app.use(passGlobalDataToViews);
 app.use("/auth", authController);
 app.use(ensureLoggedIn);
-// app.use("/recipes", recipesController);
-// app.use("/ingredients", ingredientsController);
+app.use("/posts", postsController);
 
 app.get("/", (req, res) => {
   res.render("index.ejs", {
@@ -51,7 +51,10 @@ app.get("/vip-lounge", (req, res) => {
   }
 });
 
+app.use(passGlobalDataToViews);
 app.use("/auth", authController);
+app.use(ensureLoggedIn);
+app.use("/posts", postsController);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
