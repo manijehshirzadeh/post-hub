@@ -10,6 +10,7 @@
     <div class="card" style="width: 18rem">
       <div class="card-body">
         <h5 class="card-title"><%= post.title %></h5>
+        <img class="card-img-top" src="<%= post.image%>"/>
         <p class="card-text"><%= post.content %></p>
         <p class="card-text">Created by: <%= post.owner.username %></p>
         <form action="/posts/<%= post._id %>?_method=DELETE" method="post">
