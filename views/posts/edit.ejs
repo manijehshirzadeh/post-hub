@@ -5,16 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <%- include('../partials/_bootstrap.ejs') %>
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <form action="/posts/<%= post._id %>?_method=PUT" method="post">
-      <div class="mb-3">
-        <label class="form-label">Title</label>
-        <input name="title" class="form-control" value="<%= post.title %>" />
-      </div>
-      <div class="mb-3">
-        <label>Content</label>
-        <textarea
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand">Post Hub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" >
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <div class="collapse navbar-collapse" >
+                <%- include('../partials/_navbar.ejs') %>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class=" row justify-content-center align-items-center fs-6 mt-5 "> 
+        <div class="col-md-6">
+        <form action="/posts/<%= post._id %>?_method=PUT" method="post">
+            <div class=" mb-3">
+              <label class="form-label">Title</label>
+              <input
+              name="title" class="form-control" value="<%= post.title %>"
+              />
+            </div>
+            <div class=" mb-3">
+              <label class="form-label">Content</label>
+              <textarea
           name="content"
           class="form-control"
           placeholder="Write your post here"
@@ -22,9 +43,10 @@
         >
 <%= post.content %></textarea
         >
+          </div>
+          <button type="submit" class="btn btn-success">Update Post</button>
+        </form>
       </div>
-
-      <button button type="submit" class="btn btn-success">Update Post</button>
-    </form>
+      </div>
   </body>
 </html>
