@@ -1,5 +1,5 @@
 body {
-  background-color: #dcedf9;
+  background-color: #fff9eb;
   font-family: system-ui, sans-serif;
 }
 
@@ -15,4 +15,8 @@ body {
   background-image: url("/images/welcome-guest.jpg");
   background-size: cover;
   background-position: center;
+}
+
+#editButton {
+  width: 75px;
 }
