@@ -1,0 +1,18 @@
+body {
+  background-color: #dcedf9;
+  font-family: system-ui, sans-serif;
+}
+
+.user-page-background {
+  height: 50vh;
+  background-image: url("/images/welcome-user.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.guest-page-background {
+  height: 50vh;
+  background-image: url("/images/welcome-guest.jpg");
+  background-size: cover;
+  background-position: center;
+}

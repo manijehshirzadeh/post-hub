@@ -4,20 +4,79 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
-    <%- include('./partials/_bootstrap.ejs') %>
+    <%- include('./partials/_bootstrap.ejs') %> 
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <% if (user) { %>
-    <h1>Welcome to Post Hub, <%= user.username %>!</h1>
-    <p>
-      <a href="/auth/sign-out">Sign out</a>
-    </p>
-    <% } else { %>
-    <h1>Welcome to the Post Hub, guest.</h1>
-    <p>
-      <a href="/auth/sign-up">Sign up</a> or
-      <a href="/auth/sign-in">Sign in</a>.
-    </p>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand">Post Hub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/posts">My Posts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/sign-out">Sign out</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <div class="user-page-background p-4">
+        <h4 class="fw-light">Welcome to Post Hub, <%= user.username %>!</h1>
+        <p class="fs-5 fw-lighter">
+          Explore the latest updates and stay connected with your community.
+        </p>
+    </div>
+      <% } else { %>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand p-2">Post Hub</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/auth/sign-up">Sign up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/auth/sign-in">Sign in</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div class="guest-page-background p-4">
+        <h4 class="fw-light">Welcome to the Post Hub, your ultimate destination for blogging and social networking.</h1>
+        <p class="fs-5 fw-lighter">
+      Join our community to share your stories, ideas, and insights with the world.
+        </p>
+      </div>
     <% } %>
+    <div class="container mt-4 text-center">
+      <div class="row">   
+      <% posts.forEach((post) => {%>
+        <div class="col-md-4">
+      <div class="card card border-success" style="width: 19rem">
+        <div class="card-body">
+          <div class="card mb-4">
+            <div class="card-body text-success">
+          <div  class="card-title "><%=post.title %></div>
+          <p class="card-text"><%=post.content%></p>
+          <div class="card-footer bg-transparent border-success">
+          <a href="/posts/<%= post._id %>">View More Details</a>
+        </div>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+      <%})%>
+  </div>
+  </div>
   </body>
 </html>
