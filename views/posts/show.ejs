@@ -5,20 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= post.title %></title>
     <%- include('../partials/_bootstrap.ejs') %>
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <div class="card" style="width: 18rem">
-      <div class="card-body">
-        <h5 class="card-title"><%= post.title %></h5>
-        <img class="card-img-top" src="<%= post.image%>"/>
-        <p class="card-text"><%= post.content %></p>
-        <p class="card-text">Created by: <%= post.owner.username %></p>
-        <form action="/posts/<%= post._id %>?_method=DELETE" method="post">
-          <button class="btn btn-danger btn-sm">Delete</button>
-        </form>
-        <a href="/posts/<%= post._id %>/edit">
-          <button class="btn btn-info btn-sm">Edit</button>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand">Post Hub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <div class="collapse navbar-collapse">
+                <%- include('../partials/_navbar.ejs') %>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <div class="container row justify-content-center mt-4">
+      <div class="card mb-3">
+        <img style="max-width: 20%; height:  auto" src="<%= post.image%>" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"><%= post.title %></h5>
+          <p class="card-text"><%= post.content %></p>
+          <p class="card-text"><small class="text-muted">Created by: <%= post.owner.username %></small></p>
+        </div>
+        <% post.comments.forEach((comment) => {%>
+          <div class="card mb-4">
+            <div class="card-body">
+              <p><%= comment.content %></p>
+  
+              <div class="d-flex justify-content-between">
+                <div class="d-flex flex-row align-items-center">
+                  // Checking if the comment doesn't have an owner, then showing GUEST
+                  <p class="small mb-0 ms-2">Commented By: <%= comment.owner ? comment.owner.username : "Guest" %></p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <%})%>
+          <form action="/posts/<%= post._id %>/comments"  method="post">
+            <label>Add a Comment</label>
+            <textarea
+              name="content"
+              class="form-control"
+              placeholder="Write your comment here"
+              style="height: 100px"
+            ></textarea>
+            <button button type="submit" class="btn btn-success">Add Comment</button>
+          </form >
+
+          // If the user is Guest, or not the owner of the post, then not showing Edit and Delete buttons
+          <% if (user && user.username == post.owner.username) { %>
+          <div class="d-grid gap-2 d-md-flex ">
+            <form action="/posts/<%= post._id %>?_method=DELETE" method="post">
+              <button class="btn btn-outline-danger">Delete</button>
+            </form>
+            <a href="/posts/<%= post._id %>/edit">
+            <button id="editButton" class="btn btn-outline-success">Edit</button>
+          </div>
+          <% }  %>
       </div>
+
     </div>
   </body>
 </html>

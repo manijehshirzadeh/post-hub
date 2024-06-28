@@ -21,9 +21,9 @@ mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
+const Post = require("./models/post.js");
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
-// app.use(morgan('dev'));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -34,16 +34,26 @@ app.use(
 
 app.use(passGlobalDataToViews);
 
-app.get("/", (req, res) => {
-  res.render("index.ejs", {
-    user: req.session.user,
-  });
-});
-
 app.use("/auth", authController);
-app.use(ensureLoggedIn);
-app.use("/posts", postsController);
 
+app.use("/posts", postsController);
+app.use(express.static("public"));
+
+// The HomePage of the website
+app.get("/", async (req, res) => {
+  try {
+    // Getting all the posts in the database, to be shown in the homepage for all the visitors
+    const posts = await Post.find().populate("owner");
+
+    res.render("index.ejs", {
+      user: req.session.user,
+      posts: posts,
+    });
+  } catch (error) {
+    console.log(error);
+    res.redirect("/");
+  }
+});
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
 });

@@ -1,10 +1,35 @@
 <nav>
-  <a href="/">Home page</a>
+  <a
+    href="/"
+    <a
+    class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover navbar-brand"
+    >Home page</a
+  >
   <% if (user) { %>
-  <a href="/posts">View my Posts</a>
-  <a href="/auth/sign-out">Sign Out</a>
+  <a
+    href="/posts"
+    <a
+    class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover navbar-brand"
+    >View my Posts</a
+  >
+  <a
+    href="/auth/sign-out"
+    <a
+    class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover navbar-brand"
+    >Sign Out</a
+  >
   <% } else { %>
-  <a href="/auth/sign-up">Sign Up</a>
-  <a href="/auth/sign-in">Sign In</a>
+  <a
+    href="/auth/sign-up"
+    <a
+    class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover navbar-brand"
+    >Sign Up</a
+  >
+  <a
+    href="/auth/sign-in"
+    <a
+    class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover navbar-brand"
+    >Sign In</a
+  >
   <% } %>
 </nav>
