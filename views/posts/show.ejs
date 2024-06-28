@@ -58,7 +58,7 @@
             <button button type="submit" class="btn btn-success">Add Comment</button>
           </form >
 
-          // If the user is Guest, or not the owner of the post, then not showing Edit and Delete buttons
+          <!-- If the user is Guest, or not the owner of the post, then not showing Edit and Delete buttons -->
           <% if (user && user.username == post.owner.username) { %>
           <div class="d-grid gap-2 d-md-flex ">
             <form action="/posts/<%= post._id %>?_method=DELETE" method="post">
